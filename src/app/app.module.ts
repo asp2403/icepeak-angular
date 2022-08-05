@@ -15,12 +15,14 @@ import { NavComponent } from './nav/nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { StartPageComponent } from './start-page/start-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    NavComponent
+    NavComponent,
+    StartPageComponent
   ],
   imports: [
     BrowserModule,
