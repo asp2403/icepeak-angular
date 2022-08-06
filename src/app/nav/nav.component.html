@@ -3,8 +3,8 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Каталог</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="index">Горные лыжи</a>
-      <a mat-list-item href="#">Горнолыжные ботинки</a>
+      <a mat-list-item routerLink="/ski">Горные лыжи</a>
+      <a mat-list-item routerLink="/boots">Горнолыжные ботинки</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -14,7 +14,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       
-        <img src="/assets/images/landscape.svg"><span>ICEPEAK Товары для активного отдыха</span>
+        <a routerLink="/start-page"><img src="/assets/images/landscape.svg"></a><span>ICEPEAK Товары для активного отдыха</span>
         <button mat-flat-button color="accent" routerLink="/shopping-cart">
           <mat-icon>shopping_cart</mat-icon>
         </button>

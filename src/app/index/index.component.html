@@ -1,24 +1,33 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
+  <h1 class="mat-h1">Категория: {{title}}</h1>
+  <div class="search-panel mat-elevation-z8">
+    <mat-form-field>
+      <mat-label>Производитель</mat-label>
+      <mat-select (selectionChange)="filterByVendor($event.value)">
+        <mat-option></mat-option>
+        <mat-option *ngFor="let vendor of vendors" value={{vendor.id}}>{{vendor.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-grid-list cols="3" rowHeight="450px">
+    <mat-grid-tile *ngFor="let model of models" [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card" routerLink="/product/{{model.id}}">
+        <mat-card-title-group>
           <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
+            {{model.vendor}}
           </mat-card-title>
-        </mat-card-header>
+          <mat-card-subtitle>{{model.model}}</mat-card-subtitle>
+        </mat-card-title-group>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+          <div>
+            <img src="{{'data:image/jpg;base64,' + model.image}}">
+          </div>
+          <div>Цена: {{model.price | number}} руб.</div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-paginator [length]="totalModels" [pageSize]="3" (page) = "onPageEvent($event)">
+  </mat-paginator>
+
 </div>
