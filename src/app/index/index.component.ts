@@ -35,6 +35,8 @@ export class IndexComponent implements OnInit {
 
   totalModels = 0;
 
+  pageNumber = 0;
+
   vendors: VendorDto[] = [];
 
   constructor(private route: ActivatedRoute, 
@@ -73,6 +75,7 @@ export class IndexComponent implements OnInit {
     this.modelService.search(this.params).subscribe(result => {
       this.models = result.content;
       this.totalModels = result.totalElements;
+      this.pageNumber = result.number;
     });
   }
 
@@ -87,8 +90,12 @@ export class IndexComponent implements OnInit {
     } else {
       this.params = this.params.delete('vendor');
     }
-
+    this.params = this.params.delete('page');
     this.search();
 
+  }
+
+  modelNameChange(event: any) {
+    console.log(event);
   }
 }

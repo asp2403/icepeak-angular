@@ -22,4 +22,6 @@
 
 .search-panel {
     padding: .5rem;
+    display: flex;
+    gap: 1rem;
 }

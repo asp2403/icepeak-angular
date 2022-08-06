@@ -8,6 +8,10 @@
         <mat-option *ngFor="let vendor of vendors" value={{vendor.id}}>{{vendor.name}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Модель</mat-label>
+      <input matInput #modelSearch (input)="modelNameChange(modelSearch.value)">
+    </mat-form-field>
   </div>
   <mat-grid-list cols="3" rowHeight="450px">
     <mat-grid-tile *ngFor="let model of models" [colspan]="1" [rowspan]="1">
@@ -27,7 +31,8 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-paginator [length]="totalModels" [pageSize]="3" (page) = "onPageEvent($event)">
+  <mat-paginator [length]="totalModels" [pageSize]="3" [pageIndex]="pageNumber" [hidePageSize]="true"
+    [showFirstLastButtons]="true" (page)="onPageEvent($event)">
   </mat-paginator>
 
 </div>

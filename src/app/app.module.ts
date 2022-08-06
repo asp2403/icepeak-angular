@@ -21,6 +21,7 @@ import { RuPaginator } from './ru-Paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatSelectModule} from '@angular/material/select'; 
+import {MatInputModule} from '@angular/material/input'; 
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}],
   bootstrap: [AppComponent]
