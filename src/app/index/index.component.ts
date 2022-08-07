@@ -9,6 +9,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { VendorDto } from '../dto/vendor';
 import { VendorService } from '../vendor.service';
+import { AgeDto } from '../dto/age';
+import { GenderDto } from '../dto/gender';
+import { GenderService } from '../gender.service';
+import { AgeService } from '../age.service';
 
 
 enum Mode {
@@ -41,9 +45,20 @@ export class IndexComponent implements OnInit {
 
   vendors: VendorDto[] = [];
 
+  ages: AgeDto[] = [];
+
+  genders: GenderDto[] = [];
+
+  sortItems = [
+    {key: 'price,asc', value: 'Цена, по возрастанию'},
+    {key: 'price,desc', value: 'Цена, по убыванию'}
+  ];
+
   constructor(private route: ActivatedRoute, 
     private modelService: ModelService, 
-    private vendorService: VendorService) { }
+    private vendorService: VendorService,
+    private genderService: GenderService,
+    private ageService: AgeService) { }
 
   get mode() {
     return this._mode;
@@ -60,6 +75,10 @@ export class IndexComponent implements OnInit {
     }
   }
 
+  get Mode(): typeof Mode {
+    return Mode;
+  }
+
   ngOnInit(): void {
     if (this.route.snapshot.routeConfig?.path === 'ski') {
       this.mode = Mode.Ski;
@@ -70,6 +89,8 @@ export class IndexComponent implements OnInit {
     this.search();
 
     this.vendorService.getVendors().subscribe(vendors => this.vendors = vendors);
+    this.genderService.getGenders().subscribe(genders => this.genders = genders);
+    this.ageService.getAges().subscribe(ages => this.ages = ages);
 
   }
 
@@ -85,28 +106,19 @@ export class IndexComponent implements OnInit {
     this.paginator.firstPage();
   }
 
+  filter(paramName: string, paramValue: string) {
+    if (paramValue) {
+      this.params = this.params.set(paramName, paramValue);
+    } else {
+      this.params = this.params.delete(paramName);
+    }
+    this.resetPaginator();
+    this.search();
+  }
+
   onPageEvent(event: PageEvent): void {
     this.params = this.params.set('page', event.pageIndex);
     this.search();
   }
 
-  filterByVendor(value: number): void {
-    if (value) {
-      this.params = this.params.set('vendor', value);
-    } else {
-      this.params = this.params.delete('vendor');
-    }
-    this.search();
-    this.resetPaginator();
-  }
-
-  filterByModelName(value: string) {
-    if(value) {
-      this.params = this.params.set('model', value);
-    } else {
-      this.params = this.params.delete('model');
-    }
-    this.resetPaginator();
-    this.search();
-  }
 }
