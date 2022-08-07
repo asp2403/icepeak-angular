@@ -10,7 +10,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Модель</mat-label>
-      <input matInput #modelSearch (input)="modelNameChange(modelSearch.value)">
+      <input matInput #modelSearch (blur)="filterByModelName(modelSearch.value)" (keyup.enter)="filterByModelName(modelSearch.value)">
     </mat-form-field>
   </div>
   <mat-grid-list cols="3" rowHeight="450px">
@@ -31,7 +31,7 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-paginator [length]="totalModels" [pageSize]="3" [pageIndex]="pageNumber" [hidePageSize]="true"
+  <mat-paginator [length]="totalModels" [pageSize]="3" [hidePageSize]="true" [pageIndex]="pageNumber"
     [showFirstLastButtons]="true" (page)="onPageEvent($event)">
   </mat-paginator>
 

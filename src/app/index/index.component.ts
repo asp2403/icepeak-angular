@@ -1,11 +1,11 @@
-import { Component, OnInit, SkipSelf } from '@angular/core';
+import { Component, OnInit, SkipSelf, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ModelService } from '../model.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { ModelShortDto } from '../dto/model';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { VendorDto } from '../dto/vendor';
 import { VendorService } from '../vendor.service';
@@ -22,6 +22,8 @@ enum Mode {
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private _mode!: Mode;
 
@@ -79,6 +81,10 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  private resetPaginator(): void {
+    this.paginator.firstPage();
+  }
+
   onPageEvent(event: PageEvent): void {
     this.params = this.params.set('page', event.pageIndex);
     this.search();
@@ -90,12 +96,17 @@ export class IndexComponent implements OnInit {
     } else {
       this.params = this.params.delete('vendor');
     }
-    this.params = this.params.delete('page');
     this.search();
-
+    this.resetPaginator();
   }
 
-  modelNameChange(event: any) {
-    console.log(event);
+  filterByModelName(value: string) {
+    if(value) {
+      this.params = this.params.set('model', value);
+    } else {
+      this.params = this.params.delete('model');
+    }
+    this.resetPaginator();
+    this.search();
   }
 }
