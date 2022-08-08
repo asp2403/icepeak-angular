@@ -1,0 +1,25 @@
+<div *ngIf="model" class='wrapper'>
+    <div class="left">
+        <img src="{{'data:image/jpg;base64,' + model.image}}">
+    </div>
+    <div class="right">
+        <h1>{{model.vendor}}</h1>
+        <h2>{{model.model}}</h2>
+        <h3>Цена: {{model.price | number}} руб.</h3>
+        <p>{{model.description}}</p>
+        <p>Возраст: {{model.age}}</p>
+        <p>Пол: {{model.gender}}</p>
+        <b>
+            <p *ngIf="model.category == Category.SKI">Ростовки в наличии: {{getHeightList()}}</p>
+            <p *ngIf="model.category == Category.BOOTS">Размеры в наличии: {{getSizeList()}}</p>
+        </b>
+        <mat-divider></mat-divider>
+        <div class="footer">
+            <button mat-raised-button color="accent" (click)="addToCart(model.id)">
+                <mat-icon>shopping_cart</mat-icon>
+                Добавить в корзину
+            </button>
+            <button mat-raised-button (click)="goBack()">Назад</button>
+        </div>
+    </div>
+</div>

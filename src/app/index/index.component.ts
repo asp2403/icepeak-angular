@@ -2,7 +2,7 @@ import { Component, OnInit, SkipSelf, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ModelService } from '../model.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { ModelShortDto } from '../dto/model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -13,6 +13,7 @@ import { AgeDto } from '../dto/age';
 import { GenderDto } from '../dto/gender';
 import { GenderService } from '../gender.service';
 import { AgeService } from '../age.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 enum Mode {
@@ -44,21 +45,40 @@ export class IndexComponent implements OnInit {
   pageNumber = 0;
 
   vendors: VendorDto[] = [];
+  selectedVendor: string | null = null;
 
   ages: AgeDto[] = [];
+  selectedAge: string | null = null;
 
   genders: GenderDto[] = [];
+  selectedGender: string | null = null;
 
   sortItems = [
-    {key: 'price,asc', value: 'Цена, по возрастанию'},
-    {key: 'price,desc', value: 'Цена, по убыванию'}
+    { key: 'price,asc', value: 'Цена, по возрастанию' },
+    { key: 'price,desc', value: 'Цена, по убыванию' }
   ];
+  selectedSortItem: string | null = null;
 
-  constructor(private route: ActivatedRoute, 
-    private modelService: ModelService, 
+  selectedModel: string | null = null;
+
+  selectedPriceForm: string | null = null;
+  selectedPriceTo: string | null = null;
+
+  selectedHeightFrom: string | null = null;
+  selectedHeightTo: string | null = null;
+
+  selectedSizeFrom: string | null = null;
+  selectedSizeTo: string | null = null;
+
+  isFiltered = false;
+
+  constructor(private route: ActivatedRoute,
+    private modelService: ModelService,
     private vendorService: VendorService,
     private genderService: GenderService,
-    private ageService: AgeService) { }
+    private ageService: AgeService,
+    private router: Router
+    ) { }
 
   get mode() {
     return this._mode;
@@ -85,7 +105,25 @@ export class IndexComponent implements OnInit {
     } else {
       this.mode = Mode.Boots;
     }
-    this.params = this.params.set('category', this.category);
+    let storedParams = sessionStorage.getItem('searchParams');
+    if (storedParams) {
+      sessionStorage.removeItem('searchParams');
+      this.params = new HttpParams({ fromString: storedParams });
+      this.selectedGender = this.params.get('gender');
+      this.selectedAge = this.params.get('age');
+      this.selectedSortItem = this.params.get('sort');
+      this.selectedVendor = this.params.get('vendor');
+      this.selectedModel = this.params.get('model');
+      this.selectedPriceForm = this.params.get('priceFrom');
+      this.selectedPriceTo = this.params.get('priceTo');
+      this.selectedHeightFrom = this.params.get('heightFrom');
+      this.selectedHeightTo = this.params.get('heightTo');
+      this.selectedSizeFrom = this.params.get('sizeFrom');
+      this.selectedSizeTo = this.params.get('sizeTo');
+      this.isFiltered = true;
+    } else {
+      this.params = this.params.set('category', this.category);
+    }
     this.search();
 
     this.vendorService.getVendors().subscribe(vendors => this.vendors = vendors);
@@ -114,11 +152,39 @@ export class IndexComponent implements OnInit {
     }
     this.resetPaginator();
     this.search();
+    this.isFiltered = true;
   }
 
-  onPageEvent(event: PageEvent): void {
+  onPageEvent(event: PageEvent) {
     this.params = this.params.set('page', event.pageIndex);
     this.search();
+  }
+
+  goToModel(id: number) {
+    sessionStorage.setItem('searchParams', this.params.toString());
+    this.router.navigate(['/model', id]);
+  }
+
+  resetFilters() {
+
+    this.selectedGender = '';
+    this.selectedAge = '';
+    this.selectedSortItem = '';
+    this.selectedVendor = '';
+    this.selectedModel = '';
+    this.selectedPriceForm = '';
+    this.selectedPriceTo = '';
+    this.selectedHeightFrom = '';
+    this.selectedHeightTo = '';
+    this.selectedSizeFrom = '';
+    this.selectedSizeTo = '';
+    this.params = new HttpParams()
+      .set('category', this.category)
+      .set('page', 0)
+      .set('size', 3);
+    this.resetPaginator();
+    this.search();
+    this.isFiltered = false;
   }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { ModelShortDto } from './dto/model';
+import { ModelFullDto, ModelShortDto } from './dto/model';
 import { ModelSearchDto } from './dto/model-search';
 
 @Injectable({
@@ -15,5 +15,9 @@ export class ModelService {
 
   search(params: HttpParams): Observable<ModelSearchDto> {
     return this.http.get<ModelSearchDto>(this.url + "search", {params: params});
+  }
+
+  getModel(id: number): Observable<ModelFullDto> {
+    return this.http.get<ModelFullDto>(this.url + id);
   }
 }

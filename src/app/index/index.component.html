@@ -3,64 +3,65 @@
   <div class="search-panel mat-elevation-z8">
     <mat-form-field>
       <mat-label>Производитель</mat-label>
-      <mat-select (selectionChange)="filter('vendor', $event.value)">
+      <mat-select [(ngModel)]="selectedVendor" (selectionChange)="filter('vendor', $event.value)">
         <mat-option></mat-option>
         <mat-option *ngFor="let vendor of vendors" value={{vendor.id}}>{{vendor.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Модель</mat-label>
-      <input matInput #modelSearch (blur)="filter('model', modelSearch.value)" (keyup.enter)="filter('model', modelSearch.value)">
+      <input [(ngModel)]="selectedModel"  matInput #modelSearch (blur)="filter('model', modelSearch.value)" (keyup.enter)="filter('model', modelSearch.value)">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Цена, от</mat-label>
-      <input matInput type="number" #priceFrom (blur)="filter('priceFrom', priceFrom.value)" (keyup.enter)="filter('priceFrom', priceFrom.value)">
+      <input [(ngModel)]="selectedPriceForm" matInput type="number" #priceFrom (blur)="filter('priceFrom', priceFrom.value)" (keyup.enter)="filter('priceFrom', priceFrom.value)">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Цена, до</mat-label>
-      <input matInput type="number" #priceTo (blur)="filter('priceTo', priceTo.value)" (keyup.enter)="filter('priceTo', priceTo.value)">
+      <input  [(ngModel)]="selectedPriceTo" matInput type="number" #priceTo (blur)="filter('priceTo', priceTo.value)" (keyup.enter)="filter('priceTo', priceTo.value)">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Возраст</mat-label>
-      <mat-select (selectionChange)="filter('age', $event.value)">
+      <mat-select [(ngModel)]="selectedAge" (selectionChange)="filter('age', $event.value)">
         <mat-option></mat-option>
         <mat-option *ngFor="let age of ages" value={{age.id}}>{{age.value}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Пол</mat-label>
-      <mat-select (selectionChange)="filter('gender', $event.value)">
+      <mat-select [(ngModel)]="selectedGender"  (selectionChange)="filter('gender', $event.value)">
         <mat-option></mat-option>
         <mat-option *ngFor="let gender of genders" value={{gender.id}}>{{gender.value}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field *ngIf="mode === Mode.Ski">
       <mat-label>Ростовка, от</mat-label>
-      <input matInput type="number" #heightFrom (blur)="filter('heightFrom', heightFrom.value)" (keyup.enter)="filter('heightFrom', heightFrom.value)">
+      <input [(ngModel)]="selectedHeightFrom" matInput type="number" #heightFrom (blur)="filter('heightFrom', heightFrom.value)" (keyup.enter)="filter('heightFrom', heightFrom.value)">
     </mat-form-field>
     <mat-form-field *ngIf="mode === Mode.Ski">
       <mat-label>Ростовка, до</mat-label>
-      <input matInput type="number" #heightTo (blur)="filter('heightTo', heightTo.value)" (keyup.enter)="filter('heightTo', heightTo.value)">
+      <input [(ngModel)]="selectedHeightTo" matInput type="number" #heightTo (blur)="filter('heightTo', heightTo.value)" (keyup.enter)="filter('heightTo', heightTo.value)">
     </mat-form-field>
     <mat-form-field *ngIf="mode === Mode.Boots">
       <mat-label>Размер, от</mat-label>
-      <input matInput type="number" #sizeFrom (blur)="filter('sizeFrom', sizeFrom.value)" (keyup.enter)="filter('sizeFrom', sizeFrom.value)">
+      <input [(ngModel)]="selectedSizeFrom" matInput type="number" #sizeFrom (blur)="filter('sizeFrom', sizeFrom.value)" (keyup.enter)="filter('sizeFrom', sizeFrom.value)">
     </mat-form-field>
     <mat-form-field *ngIf="mode === Mode.Boots">
       <mat-label>Размер, до</mat-label>
-      <input matInput type="number" #sizeTo (blur)="filter('sizeTo', sizeTo.value)" (keyup.enter)="filter('sizeTo', sizeTo.value)">
+      <input [(ngModel)]="selectedSizeTo" matInput type="number" #sizeTo (blur)="filter('sizeTo', sizeTo.value)" (keyup.enter)="filter('sizeTo', sizeTo.value)">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Сортировка</mat-label>
-      <mat-select (selectionChange)="filter('sort', $event.value)">
+      <mat-select [(ngModel)]="selectedSortItem" (selectionChange)="filter('sort', $event.value)">
         <mat-option></mat-option>
         <mat-option *ngFor="let item of sortItems" value={{item.key}}>{{item.value}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <button *ngIf="isFiltered" mat-raised-button (click)="resetFilters()">Сбосить фильтры</button>
   </div>
   <mat-grid-list cols="3" rowHeight="450px">
     <mat-grid-tile *ngFor="let model of models" [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card" routerLink="/product/{{model.id}}">
+      <mat-card class="dashboard-card" (click) = "goToModel(model.id)">
         <mat-card-title-group>
           <mat-card-title>
             {{model.vendor}}

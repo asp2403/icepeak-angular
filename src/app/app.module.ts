@@ -21,14 +21,19 @@ import { RuPaginator } from './ru-Paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatSelectModule} from '@angular/material/select'; 
-import {MatInputModule} from '@angular/material/input'; 
+import {MatInputModule} from '@angular/material/input';
+import { ModelComponent } from './model/model.component'; 
+import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     NavComponent,
-    StartPageComponent
+    StartPageComponent,
+    ModelComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +53,9 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}],
   bootstrap: [AppComponent]

@@ -1,3 +1,5 @@
+import { ProductDto } from "./product";
+
 export interface ModelShortDto {
     id: number;
     category: number;
@@ -5,4 +7,11 @@ export interface ModelShortDto {
     vendor: string;
     price: number;
     image: string;
+}
+
+export interface ModelFullDto extends ModelShortDto {
+    description: string;
+    age: string;
+    gender: string;
+    products: ProductDto[];
 }
