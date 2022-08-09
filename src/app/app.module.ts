@@ -17,7 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { StartPageComponent } from './start-page/start-page.component';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator'; 
-import { RuPaginator } from './ru-Paginator';
+import { RuPaginator } from './ru-paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatSelectModule} from '@angular/material/select'; 
@@ -25,6 +25,8 @@ import {MatInputModule} from '@angular/material/input';
 import { ModelComponent } from './model/model.component'; 
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { SelectProductComponent } from './select-product/select-product.component'; 
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     IndexComponent,
     NavComponent,
     StartPageComponent,
-    ModelComponent
+    ModelComponent,
+    SelectProductComponent
   ],
   imports: [
     HttpClientModule,
@@ -55,7 +58,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatInputModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}],
   bootstrap: [AppComponent]

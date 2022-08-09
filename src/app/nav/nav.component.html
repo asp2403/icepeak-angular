@@ -16,7 +16,7 @@
       
         <a routerLink="/start-page"><img src="/assets/images/landscape.svg"></a><span>ICEPEAK Товары для активного отдыха</span>
         <button mat-flat-button color="accent" routerLink="/shopping-cart">
-          <mat-icon>shopping_cart</mat-icon>
+          <mat-icon>shopping_cart</mat-icon>{{getCartItemCount()}}
         </button>
       
     </mat-toolbar>

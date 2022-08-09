@@ -109,20 +109,27 @@ export class IndexComponent implements OnInit {
     if (storedParams) {
       sessionStorage.removeItem('searchParams');
       this.params = new HttpParams({ fromString: storedParams });
-      this.selectedGender = this.params.get('gender');
-      this.selectedAge = this.params.get('age');
-      this.selectedSortItem = this.params.get('sort');
-      this.selectedVendor = this.params.get('vendor');
-      this.selectedModel = this.params.get('model');
-      this.selectedPriceForm = this.params.get('priceFrom');
-      this.selectedPriceTo = this.params.get('priceTo');
-      this.selectedHeightFrom = this.params.get('heightFrom');
-      this.selectedHeightTo = this.params.get('heightTo');
-      this.selectedSizeFrom = this.params.get('sizeFrom');
-      this.selectedSizeTo = this.params.get('sizeTo');
-      this.isFiltered = true;
+      let category = this.params.get('category');
+      if (category != this.category) {
+        this.params = this.params.set('category', this.category);
+        this.isFiltered = false;
+      } else {
+        this.selectedGender = this.params.get('gender');
+        this.selectedAge = this.params.get('age');
+        this.selectedSortItem = this.params.get('sort');
+        this.selectedVendor = this.params.get('vendor');
+        this.selectedModel = this.params.get('model');
+        this.selectedPriceForm = this.params.get('priceFrom');
+        this.selectedPriceTo = this.params.get('priceTo');
+        this.selectedHeightFrom = this.params.get('heightFrom');
+        this.selectedHeightTo = this.params.get('heightTo');
+        this.selectedSizeFrom = this.params.get('sizeFrom');
+        this.selectedSizeTo = this.params.get('sizeTo');
+        this.isFiltered = this.params.keys().length > 3;
+      }
     } else {
       this.params = this.params.set('category', this.category);
+      this.isFiltered = false;
     }
     this.search();
 

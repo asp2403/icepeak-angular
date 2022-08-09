@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+.button-panel {
+    display: flex;
+    gap: .7rem;
+    margin-top: 1rem;
+}
+
+img {
+    margin: 1rem;
+}
+
+
+
+
+
