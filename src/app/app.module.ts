@@ -27,6 +27,10 @@ import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 import {MatDialogModule} from '@angular/material/dialog';
 import { SelectProductComponent } from './select-product/select-product.component'; 
+import {MatTableModule} from '@angular/material/table';
+import { QuantitySpinnerComponent } from './quantity-spinner/quantity-spinner.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { SelectProductComponent } from './select-product/select-product.componen
     NavComponent,
     StartPageComponent,
     ModelComponent,
-    SelectProductComponent
+    SelectProductComponent,
+    QuantitySpinnerComponent,
+    ConfirmDialogComponent,
+    ShoppingCartComponent
   ],
   imports: [
     HttpClientModule,
@@ -59,7 +66,9 @@ import { SelectProductComponent } from './select-product/select-product.componen
     MatInputModule,
     FormsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+
   ],
   providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}],
   bootstrap: [AppComponent]

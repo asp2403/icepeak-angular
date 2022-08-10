@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { CartItem } from './domain/cartItem';
+import { map, Observable, of } from 'rxjs';
+import { CartDatasourceItem, CartItem } from './domain/cartItem';
 import { Product } from './domain/product';
-import { CartItemDto } from './dto/cart-item';
-import { ProductDto } from './dto/product';
 import { ModelService } from './model.service';
 
 @Injectable({
@@ -14,7 +12,7 @@ export class CartService {
   private isLoaded = false;
 
   private cartItems: CartItem[] = [];
-  
+
   constructor(
     private modelService: ModelService
   ) { }
@@ -24,9 +22,12 @@ export class CartService {
   }
 
   private load() {
-    let stored = localStorage.getItem('cart');
-    if (stored) {
-      this.cartItems = JSON.parse(stored);
+    if (!this.isLoaded) {
+      let stored = localStorage.getItem('cart');
+      if (stored) {
+        this.cartItems = JSON.parse(stored);
+      }
+      this.isLoaded = true;
     }
   }
 
@@ -50,11 +51,13 @@ export class CartService {
   }
 
   getCartItemCount(): number {
-    if (!this.isLoaded) {
-      this.load();
-      this.isLoaded = true;
-    }
+    this.load();
     return this.cartItems.length;
+  }
+
+  getCartItems(): CartItem[] {
+    this.load();
+    return this.cartItems;
   }
 
   isEmpty(): boolean {
@@ -65,23 +68,27 @@ export class CartService {
     this.cartItems[index].qty = qty;
   }
 
-  // getDataSource(): Observable<CartItemDto[]> {
-  //   if (!this.isLoaded) {
-  //     this.load();
-  //   }
-  //   let ids: number[] = [];
-  //   this.cartItems.forEach(item => ids.push(item.product.idModel));
-  //   this.modelService.getModelsByIds(ids).subscribe(
-  //     (models) => {
-  //       let cartItems: CartItemDto[] = [];
-  //       models.forEach(model => {
+  getDataSource(): Observable<CartDatasourceItem[]> {
+    this.load();
+    let cartDSItems: CartDatasourceItem[] = [];
 
-        
-  //       });
-  //       return of(cartItems);
-  //     }
-  //   );
-  // }
+    let uniqueIds = new Set<number>();
+    this.cartItems.forEach(item => uniqueIds.add(item.product.idModel));
+    let ids: number[] = Array.from(uniqueIds);
 
-  //getTotalCost
+    this.modelService.getModelsByIds(ids).subscribe(
+      modelDtos => {
+        this.cartItems.forEach(cartItem => {
+          let modelDtoIndex = modelDtos.findIndex(item => item.id == cartItem.product.idModel);
+          if (modelDtoIndex != -1) {
+            let cartDSItem = new CartDatasourceItem(cartItem, modelDtos[modelDtoIndex]);
+            cartDSItems.push(cartDSItem);
+
+          }
+        })
+      }
+    );
+    return of(cartDSItems);
+  }
+
 }

@@ -21,8 +21,13 @@ export class NavComponent {
     private breakpointObserver: BreakpointObserver,
     private cartService: CartService) {}
 
-  getCartItemCount(): number {
-    return this.cartService.getCartItemCount();
+  getCartItemCount(): string {
+    let count = this.cartService.getCartItemCount();
+    if (count > 0) {
+      return count.toString();
+    } else {
+      return '';
+    }
   }
 
 }

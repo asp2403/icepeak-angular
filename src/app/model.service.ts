@@ -22,10 +22,14 @@ export class ModelService {
     return this.http.get<ModelFullDto>(this.url + id);
   }
 
+  getModelShort(id: number): Observable<ModelShortDto> {
+    return this.http.get<ModelShortDto>(this.url + 'short/' + id);
+  }
+
   getModelsByIds(ids: number[]): Observable<ModelShortDto[]> {
     let params = new HttpParams();
     ids.forEach(item => params = params.append('ids', item));
-    return this.http.get<ModelShortDto[]>(this.url + 'list', {params: params});
+    return this.http.get<ModelShortDto[]>(this.url + 'short/list', {params: params});
   }
 
 }

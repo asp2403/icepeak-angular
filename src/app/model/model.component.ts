@@ -100,16 +100,21 @@ export class ModelComponent implements OnInit {
             let productDto: ProductDto | undefined = this.model?.products.find(product => product.id == productId);
             if (productDto) {
               let product: Product;
+              let productStr: string;
               if (this.model?.category == Category.SKI) {
-                product = new Ski(productId, this.model.id, (productDto as SkiDto).height);
+                let ski = (productDto as SkiDto);
+                product = new Ski(productId, this.model.id, ski.height);
+                productStr = `Ростовка: ${ski.height}`;
               } else {
-                product = new Boots(productId, this.model?.id, (productDto as BootsDto).size);
+                let boots = (productDto as BootsDto);
+                product = new Boots(productId, this.model?.id, boots.size);
+                productStr = `Размер: ${boots.size}`;
               }
               let message: string;
               if (this.cartService.addToCart(product)) {
-                message = `Модель ${this.model?.model} добавлена в корзину`;
+                message = `Модель ${this.model?.model} (${productStr}) добавлена в корзину`;
               } else {
-                message = `Модель ${this.model?.model} уже есть в корзине`;
+                message = `Модель ${this.model?.model} (${productStr}) уже есть в корзине`;
               }
               this.snackBar.open(message, '', {
                 duration: 2000,
