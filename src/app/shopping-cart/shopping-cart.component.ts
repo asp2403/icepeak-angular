@@ -36,32 +36,6 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
     this.cartService.getDataSource().subscribe(ds => this.dataSource = ds);
   }
 
-  // private getDataSet() {
-  //   let cartDSItems: CartDatasourceItem[] = [];
-
-  //   let cartItems = this.cartService.getCartItems();
-  //   let uniqueIds = new Set<number>();
-  //   cartItems.forEach(item => uniqueIds.add(item.product.idModel));
-  //   let ids: number[] = Array.from(uniqueIds);
-
-  //   this.modelService.getModelsByIds(ids).subscribe(
-  //     modelDtos => {
-  //         cartItems.forEach(cartItem => {
-  //         let modelDtoIndex = modelDtos.findIndex(item => item.id == cartItem.product.idModel);
-  //         if (modelDtoIndex != -1) {
-  //           let cartDSItem = new CartDatasourceItem(cartItem, modelDtos[modelDtoIndex]);
-  //           cartDSItems.push(cartDSItem);
-  //         }
-  //       });
-  //       this.dataSource = cartDSItems;
-  //     }
-  //   );
-  // }
-
-  private updateDatasource(): void {
-    //this.cartService.getDataSource().subscribe(ds => this.dataSource = ds);
-  }
-
   ngOnInit(): void {
     //this.updateDatasource();
 
@@ -69,9 +43,7 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   }
 
   getTotalCost(): number {
-
-    // return this.cartService.getTotalCost();
-    return 0;
+    return this.dataSource.reduce((sum, current) => sum + current.price * current.qty, 0);
   }
 
   goBack(): void {
@@ -83,6 +55,7 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cartService.clear();
+        this.dataSource = [];
         this.updateGrid();
       }
     });
@@ -90,11 +63,11 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
   onQuantityChange(value: OnQuantityChangeEvent) {
     this.cartService.updateQty(value.index, value.quantity);
+    this.dataSource[value.index].qty = value.quantity;
     this.updateGrid();
   }
 
   private updateGrid(): void {
-    this.updateDatasource();
     this.table.renderRows();
   }
 
@@ -103,6 +76,7 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cartService.delete(index);
+        this.dataSource.splice(index, 1);
         this.updateGrid();
       }
     });

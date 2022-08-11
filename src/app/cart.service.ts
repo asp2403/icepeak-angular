@@ -41,6 +41,7 @@ export class CartService {
   }
 
   delete(index: number) {
+    this.load();
     this.cartItems.splice(index, 1);
     this.save();
   }
@@ -65,7 +66,9 @@ export class CartService {
   }
 
   updateQty(index: number, qty: number) {
+    this.load();
     this.cartItems[index].qty = qty;
+    this.save();
   }
 
   getDataSource(): Observable<CartDatasourceItem[]> {
