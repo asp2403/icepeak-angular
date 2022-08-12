@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+}
+
+.details {
+    flex: 1 0 30%;
+}
+
+.footer {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.text {
+    padding: .5rem;
+}

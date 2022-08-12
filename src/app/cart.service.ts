@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { CartDatasourceItem, CartItem } from './domain/cartItem';
 import { Product } from './domain/product';
+import { OrderDto } from './dto/order';
 import { ModelService } from './model.service';
 
 @Injectable({
@@ -12,6 +13,12 @@ export class CartService {
   private isLoaded = false;
 
   private cartItems: CartItem[] = [];
+
+  private _datasource: CartDatasourceItem[] = [];
+
+  get currentDatasource() {
+    return this._datasource;
+  }
 
   constructor(
     private modelService: ModelService
@@ -47,8 +54,19 @@ export class CartService {
   }
 
   clear() {
+    this.load();
     this.cartItems = [];
+    //this._datasource = [];
     this.save();
+  }
+
+  updatePrices(order: OrderDto) {
+    this._datasource.forEach(dsItem => {
+      let orderItem = order.items.find(item => item.idProduct == dsItem.idProduct);
+      if (orderItem?.price) {
+        dsItem.price = orderItem.price;
+      }
+    });
   }
 
   getCartItemCount(): number {
@@ -91,7 +109,12 @@ export class CartService {
         })
       }
     );
+    this._datasource = cartDSItems;
     return of(cartDSItems);
   }
 
+  getTotalCost(): number {
+    return this._datasource.reduce((sum, current) => sum + current.price * current.qty, 0);
+  }
+ 
 }

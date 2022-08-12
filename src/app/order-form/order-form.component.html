@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <h1>Оформление заказа</h1>
+    <app-check-grid></app-check-grid>
+    <h2>Контактные данные</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="contact-data">
+            <mat-form-field>
+                <mat-label>Имя</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="nameControl.invalid">Поле является
+                    обязательным</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Фамилия</mat-label>
+                <input matInput formControlName="surname">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Телефон</mat-label>
+                <input matInput type="number" formControlName="phone" placeholder="916 123 45 67">
+                <span matPrefix>+7&nbsp;</span>
+                <mat-error *ngIf="phoneControl.errors?.['required']">
+                    Поле является обязательным
+                </mat-error>
+                <mat-error *ngIf="phoneControl.errors?.['pattern']">
+                    Неправильный формат номера
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="vasyapupkin@mail.ru">
+                <mat-error *ngIf="emailControl.errors?.['required']">Поле является
+                    обязательным
+                </mat-error>
+                <mat-error *ngIf="emailControl.errors?.['email']">Неправильный
+                    формат адреса
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="contact-data">
+            <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">
+                <mat-icon>check</mat-icon>Оформить заказ!
+            </button>
+            <button mat-raised-button (click)="goBack()">Назад</button>
+        </div>
+    </form>
+</div>

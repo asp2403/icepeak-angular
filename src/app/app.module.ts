@@ -31,6 +31,9 @@ import {MatTableModule} from '@angular/material/table';
 import { QuantitySpinnerComponent } from './quantity-spinner/quantity-spinner.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { OrderFormComponent } from './order-form/order-form.component';
+import { CheckGridComponent } from './check-grid/check-grid.component';
+import { OrderCompleteComponent } from './order-complete/order-complete.component';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     SelectProductComponent,
     QuantitySpinnerComponent,
     ConfirmDialogComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderFormComponent,
+    CheckGridComponent,
+    OrderCompleteComponent
   ],
   imports: [
     HttpClientModule,

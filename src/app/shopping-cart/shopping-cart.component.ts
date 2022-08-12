@@ -15,12 +15,11 @@ import { ModelService } from '../model.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit, AfterViewInit {
+export class ShoppingCartComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['image', 'vendor', 'model', 'price', 'qty', 'action'];
 
   footerColumns: string[] = ['image', 'qty'];
-  //dataSource = new ShoppingCartDS(this.cartService);
 
   dataSource: CartDatasourceItem[] = [];
 
@@ -36,14 +35,8 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
     this.cartService.getDataSource().subscribe(ds => this.dataSource = ds);
   }
 
-  ngOnInit(): void {
-    //this.updateDatasource();
-
-
-  }
-
   getTotalCost(): number {
-    return this.dataSource.reduce((sum, current) => sum + current.price * current.qty, 0);
+    return this.cartService.getTotalCost();
   }
 
   goBack(): void {

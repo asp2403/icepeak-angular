@@ -1,0 +1,22 @@
+<div class="container mat-elevation-z8">
+    <div class="details">
+        <div class="text">
+            <h1>Спасибо за заказ!</h1>
+            <p>Ваш номер заказа: <b>{{order?.idOrder}}</b></p>
+            <p>Оператор свяжется с вами в ближайшее время</p>
+            <h3>Детали заказа</h3>
+            <app-check-grid></app-check-grid>
+            <h3>Контактные данные</h3>
+            <p>Имя: {{order?.contactName}}</p>
+            <p>Фамилия: {{order?.contactSurname}}</p>
+            <p>Телефон: {{order?.contactPhone}}</p>
+            <p>Email: {{order?.contactEmail}}</p>
+        </div>
+        
+        <div class="footer">
+            <button mat-raised-button routerLink="/start-page">
+                Вернуться к покупкам
+            </button>
+        </div>
+    </div>
+</div>
