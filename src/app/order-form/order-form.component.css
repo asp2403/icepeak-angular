@@ -3,3 +3,10 @@
     gap: .5rem;
     flex-wrap: wrap;
 }
+
+.bottom-panel {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+}

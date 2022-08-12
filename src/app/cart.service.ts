@@ -116,5 +116,14 @@ export class CartService {
   getTotalCost(): number {
     return this._datasource.reduce((sum, current) => sum + current.price * current.qty, 0);
   }
+
+  getProductLabelById(id: number): string {
+    let product = this._datasource.find(item => item.idProduct == id);
+    if (product) {
+      return product.model;
+    } else {
+      return '';
+    }
+  }
  
 }

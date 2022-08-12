@@ -5,6 +5,7 @@ import { OrderDto, OrderItemDto } from '../dto/order';
 import { CartService } from '../cart.service';
 import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
+import { OrderCreateErrorCode } from '../dto/order-create-error-code';
 
 @Component({
   selector: 'app-order-form',
@@ -17,7 +18,7 @@ export class OrderFormComponent implements OnInit {
     name: new FormControl('', Validators.required),
     surname: new FormControl(''),
     phone: new FormControl('', [Validators.required, Validators.pattern('\\d{3}\\s?\\d{3}\\s?\\d{2}\\s?\\d{2}')]),
-    email: new FormControl('', [Validators.required, Validators.pattern('\\S+@\\S+\\.\\S+')])
+    email: new FormControl('', [Validators.required, Validators.pattern('\\S+@\\S+\\.\\S{2,}')])
   });
 
   get nameControl() {
@@ -35,6 +36,8 @@ export class OrderFormComponent implements OnInit {
   get emailControl() {
     return this.form.controls['email'];
   }
+
+  errorMessage: string = '';
 
   constructor(
     private location: Location,
@@ -66,9 +69,42 @@ export class OrderFormComponent implements OnInit {
       contactEmail: this.emailControl.value,
       items: orderItems
     }
-    this.orderService.createOrder(order).subscribe(order => {
-      this.cartService.clear();
-      this.router.navigate(['/order-complete'], {state: {data: order}});
+    this.orderService.createOrder(order).subscribe({
+      next: order => {
+        this.cartService.clear();
+        this.router.navigate(['/order-complete'], {state: {data: order}});
+      },
+      error: error => {
+        console.error(error);
+        if (error.status == 404) {
+          this.errorMessage = 'Произошла ошибка при выполнении запроса: ';
+          let msg: string = '';
+          let label: string = '';
+          if (error.error.errorCode) {
+            switch(error.error.errorCode) {
+              case OrderCreateErrorCode.PRODUCT_NOT_AVAILABLE: 
+                label = this.cartService.getProductLabelById(error.error.id)
+                msg = `Товара (${label}) нет на складе в нужном количестве`;
+                break;
+              case OrderCreateErrorCode.PRODUCT_NOT_FOUND:
+                label = this.cartService.getProductLabelById(error.error.id)
+                msg = `Товар (${label}) не найден на складе`;
+                break;
+              case OrderCreateErrorCode.ORDER_IS_EMPTY:
+                msg = 'Заказ пуст!';
+                break;
+              case OrderCreateErrorCode.CUSTOMER_NOT_FOUND:
+                msg = 'Покупатель не найден!';
+                break;
+              default:
+                msg = 'Неизвестная ошибка';
+            }
+          } else {
+            msg = 'Объект не найден';
+          }
+          this.errorMessage += msg;
+        }
+      }
     });
   }
 

@@ -36,7 +36,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div class="contact-data">
+        <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+        <div class="bottom-panel">
             <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">
                 <mat-icon>check</mat-icon>Оформить заказ!
             </button>
