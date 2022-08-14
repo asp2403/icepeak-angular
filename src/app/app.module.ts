@@ -34,6 +34,9 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { CheckGridComponent } from './check-grid/check-grid.component';
 import { OrderCompleteComponent } from './order-complete/order-complete.component';
+import { LoginComponent } from './login/login.component';
+import { httpInterceptorProviders } from './http-interceptors';
+
 
 
 @NgModule({
@@ -49,7 +52,8 @@ import { OrderCompleteComponent } from './order-complete/order-complete.componen
     ShoppingCartComponent,
     OrderFormComponent,
     CheckGridComponent,
-    OrderCompleteComponent
+    OrderCompleteComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
@@ -76,7 +80,7 @@ import { OrderCompleteComponent } from './order-complete/order-complete.componen
     MatTableModule,
 
   ],
-  providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}],
+  providers: [{provide: MatPaginatorIntl, useValue: RuPaginator()}, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

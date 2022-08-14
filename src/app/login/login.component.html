@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <form [formGroup]="form" class="form mat-elevation-z8" (ngSubmit)="onSubmit()">
+        <h1>Вход</h1>
+        <mat-form-field>
+            <mat-label>Логин (Ваш адрес электронной почты)</mat-label>
+            <input matInput type="email" formControlName="login" placeholder="vasyapupkin@mail.ru">
+            <mat-error *ngIf="loginControl.errors?.['required']">Поле является
+                обязательным
+            </mat-error>
+            <mat-error *ngIf="loginControl.errors?.['email']">Неправильный
+                формат адреса
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Пароль</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="passwordControl.errors?.['required']">Поле является
+                обязательным
+            </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="errorMsg">{{errorMsg}}
+        </mat-error>
+        <div class="bottom">
+            <button type="submit" mat-raised-button color="primary">
+                <mat-icon>login</mat-icon>
+                Вход
+            </button>
+        </div>
+    </form>
+</div>

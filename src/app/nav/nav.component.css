@@ -24,3 +24,26 @@
   display: flex;
   justify-content: space-between;
 }
+
+.right-corner {
+  display: flex;
+  justify-content: flex-end;
+  width: 300px;
+}
+
+
+.user {
+  flex: auto;
+
+}
+
+.shopping-cart {
+  flex: 0 0 70px;
+}
+
+.anon {
+  flex: 0 0 300px;
+
+}
+
+

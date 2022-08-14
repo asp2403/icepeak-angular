@@ -13,13 +13,29 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      
-        <a routerLink="/start-page"><img src="/assets/images/landscape.svg"></a><span>ICEPEAK Товары для активного отдыха</span>
-        <button mat-flat-button color="accent" routerLink="/shopping-cart">
+
+      <a routerLink="/start-page"><img src="/assets/images/landscape.svg"></a>
+      <span>ICEPEAK Товары для активного отдыха</span>
+      <div class="right-corner">
+        <button *ngIf="hasRole('ANONYMOUS')" mat-flat-button color="primary" routerLink="/login" class="anon">
+          <mat-icon>personal_account</mat-icon><span>Вход</span>
+        </button>
+        <button *ngIf="!hasRole('ANONYMOUS')" mat-flat-button color="primary"  [matMenuTriggerFor]="menu" class="user">
+          <mat-icon>personal_account</mat-icon>{{fullName}}
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon><span>Выход</span>
+            </button>
+            
+          </mat-menu>
+        </button>
+        <button mat-flat-button color="accent" routerLink="/shopping-cart" class="shopping-cart">
           <mat-icon>shopping_cart</mat-icon>{{getCartItemCount()}}
         </button>
-      
+      </div>
     </mat-toolbar>
+    
+    
     <div class="content">
       <router-outlet></router-outlet>
     </div>

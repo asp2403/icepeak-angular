@@ -1,0 +1,18 @@
+.wrapper {
+    padding: 2rem;
+    display: flex;
+}
+
+.form {
+    width: 20rem;
+    margin: auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+}
