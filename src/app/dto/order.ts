@@ -4,7 +4,7 @@ export interface OrderDto {
     contactSurname: string;
     contactEmail: string;
     contactPhone: string;
-    idCustomer?: string;
+    idCustomer?: number;
     idOrder?: number;
     items: OrderItemDto[];
 }

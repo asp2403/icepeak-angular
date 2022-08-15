@@ -2,6 +2,9 @@
     <h1>Оформление заказа</h1>
     <app-check-grid></app-check-grid>
     <h2>Контактные данные</h2>
+    <div *ngIf="isAnon">
+        <p><a routerLink="/login">Авторизуйтесь</a>, чтобы загрузить данные для оформления заказа</p>
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="contact-data">
             <mat-form-field>

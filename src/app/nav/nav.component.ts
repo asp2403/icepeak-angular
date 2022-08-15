@@ -37,8 +37,13 @@ export class NavComponent {
     }
   }
 
-  hasRole(roleName: string): boolean {
-    return this.authService.hasRole(roleName);
+
+  get isAnon() {
+    return this.authService.isAnon;
+  }
+
+  get isManager() {
+    return this.authService.isManager;
   }
 
   get userDetails(): UserDetailsDto {

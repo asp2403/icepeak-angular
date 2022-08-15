@@ -8,6 +8,11 @@ import { ANONYMOUS_USER, LoginDto, UserDetailsDto } from './dto/user';
 })
 export class AuthService {
 
+  ROLE_ANONYMOUS = "ANONYMOUS";
+  ROLE_CUSTOMER = "CUSTOMER";
+  ROLE_MANAGER = "MANAGER";
+  ROLE_ADMIN = "ADMIN"; 
+
   private url = "/api/auth/";
 
   userDetails: UserDetailsDto = ANONYMOUS_USER;
@@ -37,5 +42,21 @@ export class AuthService {
 
   getFullName(): string {
     return this.userDetails.name + ' ' + this.userDetails.surname;
+  }
+
+  get isAnon() {
+    return this.hasRole(this.ROLE_ANONYMOUS);
+  }
+
+  get isManager() {
+    return this.hasRole(this.ROLE_MANAGER);
+  }
+
+  get isCustomer() {
+    return this.hasRole(this.ROLE_CUSTOMER);
+  }
+
+  get isAdmin() {
+    return this.hasRole(this.ROLE_ADMIN);
   }
 }

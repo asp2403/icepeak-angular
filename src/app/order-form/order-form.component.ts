@@ -6,6 +6,7 @@ import { CartService } from '../cart.service';
 import { OrderService } from '../order.service';
 import { Router } from '@angular/router';
 import { OrderCreateErrorCode } from '../dto/order-create-error-code';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-order-form',
@@ -43,10 +44,24 @@ export class OrderFormComponent implements OnInit {
     private location: Location,
     private cartService: CartService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    if (!this.authService.isAnon) {
+      let userDetails = this.authService.userDetails;
+      this.form.patchValue({
+        name: userDetails.name,
+        surname: userDetails.surname,
+        email: userDetails.email,
+        phone: userDetails.phone
+      });
+    }
+  }
+
+  get isAnon() {
+    return this.authService.isAnon;
   }
 
   goBack(): void {
@@ -68,6 +83,9 @@ export class OrderFormComponent implements OnInit {
       contactPhone: this.phoneControl.value,
       contactEmail: this.emailControl.value,
       items: orderItems
+    }
+    if (!this.authService.isAnon) {
+      order.idCustomer = this.authService.userDetails.id;
     }
     this.orderService.createOrder(order).subscribe({
       next: order => {

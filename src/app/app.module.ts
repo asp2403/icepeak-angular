@@ -36,6 +36,7 @@ import { CheckGridComponent } from './check-grid/check-grid.component';
 import { OrderCompleteComponent } from './order-complete/order-complete.component';
 import { LoginComponent } from './login/login.component';
 import { httpInterceptorProviders } from './http-interceptors';
+import { ManagementOrdersComponent } from './management-orders/management-orders.component';
 
 
 
@@ -53,7 +54,8 @@ import { httpInterceptorProviders } from './http-interceptors';
     OrderFormComponent,
     CheckGridComponent,
     OrderCompleteComponent,
-    LoginComponent
+    LoginComponent,
+    ManagementOrdersComponent
   ],
   imports: [
     HttpClientModule,
