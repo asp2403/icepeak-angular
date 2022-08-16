@@ -1,11 +1,19 @@
+import { Timestamp } from "rxjs";
 
 export interface OrderDto {
+    idOrder?: number;
+    state?: number;
     contactName: string;
     contactSurname: string;
     contactEmail: string;
     contactPhone: string;
     idCustomer?: number;
-    idOrder?: number;
+    idManager?: number;
+    orderDate?: Date;
+    assignDate?: Date;
+    readyDate?: Date;
+    finalDate?: Date;
+  
     items: OrderItemDto[];
 }
 
