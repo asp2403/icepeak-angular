@@ -8,7 +8,7 @@ import { OrderDto } from './dto/order';
 })
 export class OrderService {
 
-  private url = '/api/orders/';
+  private url = '/api/public/orders/';
 
   constructor(
     private http: HttpClient
@@ -18,9 +18,5 @@ export class OrderService {
     return this.http.post<OrderDto>(this.url, order);
   }
 
-  getOrder(id: number): Observable<OrderDto> {
-    return this.http.get<OrderDto>(this.url + id);
-  }
-
-  
+ 
 }

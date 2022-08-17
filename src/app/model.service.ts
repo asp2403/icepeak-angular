@@ -10,7 +10,7 @@ import { ModelSearchDto } from './dto/model-search';
 })
 export class ModelService {
 
-  private url = "/api/models/";
+  private url = "/api/public/models/";
 
   constructor(private http: HttpClient) { }
 

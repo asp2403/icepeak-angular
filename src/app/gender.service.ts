@@ -8,7 +8,7 @@ import { GenderDto } from './dto/gender';
 })
 export class GenderService {
 
-  private url = '/api/genders/';
+  private url = '/api/public/genders/';
 
   constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ import { AgeDto } from './dto/age';
 })
 export class AgeService {
 
-  private url = '/api/ages/'
+  private url = '/api/public/ages/'
 
   constructor(private http: HttpClient) { }
 

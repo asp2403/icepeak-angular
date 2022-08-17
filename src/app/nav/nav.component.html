@@ -17,14 +17,14 @@
       <a routerLink="/start-page"><img src="/assets/images/landscape.svg"></a>
       <span>ICEPEAK Товары для активного отдыха</span>
       <div class="right-corner">
-        <button *ngIf="isAnon" mat-flat-button color="primary" routerLink="/login" class="anon">
+        <button *ngIf="isAnon" mat-flat-button color="primary" routerLink="/login" class="user">
           <mat-icon>personal_account</mat-icon><span>Вход</span>
         </button>
         <button *ngIf="!isAnon" mat-flat-button color="primary"  [matMenuTriggerFor]="menu" class="user">
           <mat-icon>personal_account</mat-icon>{{fullName}}
           <mat-menu #menu="matMenu" xPosition="before">
-            <button *ngIf="isManager" mat-menu-item routerLink="/management-orders">
-              <mat-icon>shop</mat-icon><span>Заказы</span>
+            <button *ngIf="isManager" mat-menu-item routerLink="/work-area/orders">
+              <mat-icon>shop</mat-icon><span>Обработка заказов</span>
             </button> 
             <button mat-menu-item (click)="logout()">
               <mat-icon>logout</mat-icon><span>Выход</span>

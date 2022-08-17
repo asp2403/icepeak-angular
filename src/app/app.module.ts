@@ -37,6 +37,7 @@ import { OrderCompleteComponent } from './order-complete/order-complete.componen
 import { LoginComponent } from './login/login.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { ManagementOrdersComponent } from './management-orders/management-orders.component';
+import { WorkAreaOrderComponent } from './work-area-order/work-area-order.component';
 
 
 
@@ -55,7 +56,8 @@ import { ManagementOrdersComponent } from './management-orders/management-orders
     CheckGridComponent,
     OrderCompleteComponent,
     LoginComponent,
-    ManagementOrdersComponent
+    ManagementOrdersComponent,
+    WorkAreaOrderComponent
   ],
   imports: [
     HttpClientModule,

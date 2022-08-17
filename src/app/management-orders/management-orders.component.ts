@@ -1,9 +1,11 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 import { OrderState } from '../domain/order-state';
 import { OrderDto } from '../dto/order';
-import { ManagementService } from '../management.service';
+import { WorkAreaService } from '../work-area.service';
 
 @Component({
   selector: 'app-management-orders',
@@ -35,7 +37,9 @@ export class ManagementOrdersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private managementService: ManagementService
+    private managementService: WorkAreaService,
+    private router: Router,
+    private appService: AppService
   ) { }
 
   ngOnInit(): void {
@@ -57,23 +61,21 @@ export class ManagementOrdersComponent implements OnInit {
   }
 
   getStateLabel(state: number): string {
-    switch(state) {
-      case OrderState.NEW:
-        return 'Новый';
-      case OrderState.PROCESSING:
-        return 'Комплектуется';
-      case OrderState.READY:
-        return 'Готов к выдаче';
-      case OrderState.DELIVERED:
-        return 'Выполнен';
-      case OrderState.CANCELLED:
-        return 'Отменен';
-      default:
-        return '';
-    }
+    return this.appService.getStateLabel(state);
   }
 
-  // getDateTime(Timestamp)
+  getStateClass(state: number): string {
+    return this.appService.getStateClass(state);
+  }
+
+  convertDate(value: string): string {
+    let date = new Date(value);
+    return date.toLocaleString();
+  }
+
+  onRowClick(row: OrderDto) {
+    this.router.navigate(['/work-area/orders/' + row.idOrder])
+  }
 
   filter(paramName: string, paramValue: string) {
     if (paramValue) {

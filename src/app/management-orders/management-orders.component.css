@@ -10,3 +10,44 @@ table {
     flex-wrap: wrap;
     justify-content: flex-start;
 }
+
+th.mat-header-cell,
+.mat-cell {
+    text-align: center;
+}
+
+
+.mat-row .mat-cell {
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+    border-color: currentColor;
+}
+
+.status {
+    color: white;
+    margin: .5rem;
+}
+
+.state-new {
+    background-color: coral;
+}
+
+.state-processing {
+     background-color:goldenrod
+}
+
+.state-ready {
+    background-color: chartreuse;
+}
+
+.state-delivered {
+    background-color: cornflowerblue;
+}
+
+.state-cancelled {
+    background-color: darkgrey;
+}

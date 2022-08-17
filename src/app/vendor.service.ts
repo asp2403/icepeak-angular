@@ -8,7 +8,7 @@ import { VendorDto } from './dto/vendor';
 })
 export class VendorService {
 
-  private url = "/api/vendors/";
+  private url = "/api/public/vendors/";
 
   constructor(private http: HttpClient) { }
 

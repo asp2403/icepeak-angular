@@ -1,0 +1,62 @@
+.bottom-panel {
+    display: flex;
+    gap: .5rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.row {
+    display: flex;
+    gap: .5rem
+}
+
+.status {
+    width: 10rem;
+    height: 1.5rem;
+    display: flex;
+}
+
+.status-text {
+    margin: auto;
+    color: white;
+}
+
+.title {
+    font-size: large;
+}
+
+.state-new {
+    background-color: coral;
+}
+
+.state-processing {
+    
+    background-color: goldenrod;
+}
+
+.state-ready {
+    background-color: chartreuse;
+}
+
+.state-delivered {
+    background-color: cornflowerblue;
+}
+
+.state-cancelled {
+    background-color: darkgrey;
+}
+
+.panel {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+[hidden] {
+    display: none !important;
+}

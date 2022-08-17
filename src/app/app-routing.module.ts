@@ -8,6 +8,7 @@ import { OrderCompleteComponent } from './order-complete/order-complete.componen
 import { OrderFormComponent } from './order-form/order-form.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { WorkAreaOrderComponent } from './work-area-order/work-area-order.component';
 
 const routes: Routes = [
   { path: 'start-page', component: StartPageComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'order', component: OrderFormComponent },
   { path: 'order-complete', component: OrderCompleteComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'management-orders', component: ManagementOrdersComponent },
+  { path: 'work-area/orders', component: ManagementOrdersComponent },
+  { path: 'work-area/orders/:id', component: WorkAreaOrderComponent },
   { path: '', redirectTo: '/start-page', pathMatch: 'full'}
 ];
 

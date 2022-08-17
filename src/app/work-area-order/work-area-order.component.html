@@ -1,0 +1,35 @@
+<div class="form" *ngIf="order">
+    <h1 class="mat-h1">Заказ #{{order.idOrder}}</h1>
+    <div class="panel mat-elevation-z8">
+        <div class="row">
+            <span class="title">Статус заказа:</span>
+            <div class="status {{getOrderStateClass(order.state)}}">
+                <div class="status-text">{{getOrderStateLabel(order.state)}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <span>Дата заказа:</span>
+            <span>{{convertDate(order.orderDate)}}</span>
+        </div>
+        <div class="row">
+            <span>Контактные данные:</span>
+            <span>{{order.contactName}} {{order.contactSurname}}</span>
+        </div>
+        <div class="row">
+            <span>Телефон:</span>
+            <span>+7{{order.contactPhone}}</span>
+        </div>
+        <div class="row">
+            <span>Email:</span>
+            <span>{{order.contactEmail}}</span>
+        </div>
+    </div>
+    
+    <div class="bottom-panel">
+        <button [hidden]="assignNextHidden" mat-raised-button color="primary" (click)="assign()">Взять в работу</button>  
+        <button [hidden]="completeProcessingNextHidden" mat-raised-button color="primary" (click)="assign()">Комплектация завершена</button>
+        <button [hidden]="assignPrevHidden" mat-raised-button color="warn" (click)="assign()">Взять в работу</button>
+        <button [hidden]="completeProcessingPrevHidden" mat-raised-button color="warn" (click)="assign()">Комплектация завершена</button>
+        <button mat-raised-button (click)="goBack()">Назад</button>
+    </div>
+</div>

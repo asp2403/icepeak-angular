@@ -9,7 +9,7 @@ export interface OrderDto {
     contactPhone: string;
     idCustomer?: number;
     idManager?: number;
-    orderDate?: Date;
+    orderDate?: string;
     assignDate?: Date;
     readyDate?: Date;
     finalDate?: Date;

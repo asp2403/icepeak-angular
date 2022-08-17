@@ -33,7 +33,7 @@
 
 
 .user {
-  flex: auto;
+  flex: 1 0 300px;
 
 }
 
@@ -41,9 +41,6 @@
   flex: 0 0 70px;
 }
 
-.anon {
-  flex: 0 0 300px;
 
-}
 
 
