@@ -31,4 +31,8 @@ export class WorkAreaService {
   assignOrder(idOrder: number, idManager: number): Observable<OrderDto>{
     return this.http.put<OrderDto>(this.url + `orders/${idOrder}/assign/${idManager}`, null);
   }
+
+  orderCompleteProcessing(idOrder: number): Observable<OrderDto> {
+    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/complete-processing`, null);
+  }
 }

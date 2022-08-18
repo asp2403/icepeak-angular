@@ -20,7 +20,7 @@ export class ManagementOrdersComponent implements OnInit {
 
   orders: OrderDto[] = [];
 
-  displayedColumns = ['idOrder', 'state', 'orderDate', 'contactName', 'contactSurname', 'contactEmail', 'contactPhone'];
+  displayedColumns = ['idOrder', 'manager', 'state', 'orderDate', 'contactName', 'contactSurname', 'contactEmail', 'contactPhone'];
 
   states = [
     {id: OrderState.NEW, state: this.getStateLabel(OrderState.NEW)},
@@ -89,6 +89,10 @@ export class ManagementOrdersComponent implements OnInit {
 
   private resetPaginator(): void {
     this.paginator.firstPage();
+  }
+
+  getManagerName(order: OrderDto) {
+    return this.appService.getManagerName(order);
   }
 
 }

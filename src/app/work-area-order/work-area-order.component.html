@@ -1,5 +1,6 @@
 <div class="form" *ngIf="order">
     <h1 class="mat-h1">Заказ #{{order.idOrder}}</h1>
+    <h4 class="mat-h4">Менеджер: {{getManagerName(order)}}</h4>
     <div class="panel mat-elevation-z8">
         <div class="row">
             <span class="title">Статус заказа:</span>
@@ -27,9 +28,11 @@
     
     <div class="bottom-panel">
         <button [hidden]="assignNextHidden" mat-raised-button color="primary" (click)="assign()">Взять в работу</button>  
-        <button [hidden]="completeProcessingNextHidden" mat-raised-button color="primary" (click)="assign()">Комплектация завершена</button>
+        <button [hidden]="completeProcessingNextHidden" mat-raised-button color="primary" (click)="completeProcessing()">Комплектация завершена</button>
+        <button [hidden]="deliverNextHidden" mat-raised-button color="primary" (click)="deliver()">Доставлено</button>
+        <button [hidden]="returnToProcessingPrevHidden" mat-raised-button color="warn" (click)="returnToProcessing()">Вернуть в работу</button>
         <button [hidden]="assignPrevHidden" mat-raised-button color="warn" (click)="assign()">Взять в работу</button>
-        <button [hidden]="completeProcessingPrevHidden" mat-raised-button color="warn" (click)="assign()">Комплектация завершена</button>
+        <button [hidden]="completeProcessingPrevHidden" mat-raised-button color="warn" (click)="completeProcessing()">Комплектация завершена</button>
         <button mat-raised-button (click)="goBack()">Назад</button>
     </div>
 </div>

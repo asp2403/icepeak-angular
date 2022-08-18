@@ -1,4 +1,5 @@
 import { Timestamp } from "rxjs";
+import { ManagerDto } from "./user";
 
 export interface OrderDto {
     idOrder?: number;
@@ -8,7 +9,7 @@ export interface OrderDto {
     contactEmail: string;
     contactPhone: string;
     idCustomer?: number;
-    idManager?: number;
+    manager?: ManagerDto;
     orderDate?: string;
     assignDate?: Date;
     readyDate?: Date;

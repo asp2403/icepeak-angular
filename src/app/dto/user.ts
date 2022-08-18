@@ -23,3 +23,8 @@ export const ANONYMOUS_USER: UserDetailsDto = {
     authToken: ""
 }
 
+export interface ManagerDto {
+    id: number;
+    fullName: string;
+} 
+
