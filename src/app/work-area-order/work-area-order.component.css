@@ -12,12 +12,13 @@
 
 .row {
     display: flex;
-    gap: .5rem
+    gap: .5rem;
+    align-items: center;
 }
 
 .status {
     width: 10rem;
-    height: 1.5rem;
+    height: 3rem;
     display: flex;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .state-ready {
-    background-color: chartreuse;
+    background-color:seagreen;
 }
 
 .state-delivered {

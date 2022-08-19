@@ -4,7 +4,7 @@ import { OrderDto } from '../dto/order';
 import { WorkAreaService } from '../work-area.service';
 import { Location } from '@angular/common';
 import { AppService } from '../app.service';
-import { ASSIGN, BpmData, COMPLETE_PROCESSING, DELIVER, RETURN_TO_PROCESSING } from '../dto/bpm';
+import { ASSIGN, BpmData, COMPLETE_DELIVERY, COMPLETE_PROCESSING, RETURN_TO_PROCESSING } from '../dto/bpm';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -95,27 +95,39 @@ export class WorkAreaOrderComponent implements OnInit {
   }
 
   get completeProcessingNextHidden() {
-    return this.bpmActions?.nextAction != COMPLETE_PROCESSING;
-  }
-
-  get completeProcessingPrevHidden() {
-    return this.bpmActions?.prevAction != COMPLETE_PROCESSING;
+    return this.bpmActions?.nextAction != COMPLETE_PROCESSING || this.authService.userDetails.id != this.order?.manager?.id;
   }
 
   get deliverNextHidden() {
-    return this.bpmActions?.nextAction != DELIVER;
+    return this.bpmActions?.nextAction != COMPLETE_DELIVERY;
   }
 
   get returnToProcessingPrevHidden() {
     return this.bpmActions?.prevAction != RETURN_TO_PROCESSING;
   }
 
-  deliver() {
-
+  completeDelivery() {
+    if (this.order?.idOrder) {
+      this.workAreaService.orderCompleteDelivery(this.order.idOrder)
+        .subscribe(order => {
+          this.order = order;
+          if (order.state) {
+            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+          }
+        })
+    }
   }
 
   returnToProcessing() {
-    
+    if (this.order?.idOrder) {
+      this.workAreaService.orderReturnToProcessing(this.order.idOrder)
+        .subscribe(order => {
+          this.order = order;
+          if (order.state) {
+            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+          }
+        })
+    }
   }
 
   getManagerName(order: OrderDto) {

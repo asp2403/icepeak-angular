@@ -35,4 +35,12 @@ export class WorkAreaService {
   orderCompleteProcessing(idOrder: number): Observable<OrderDto> {
     return this.http.put<OrderDto>(this.url + `orders/${idOrder}/complete-processing`, null);
   }
+
+  orderReturnToProcessing(idOrder: number): Observable<OrderDto> {
+    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/return-to-processing`, null);
+  }
+
+  orderCompleteDelivery(idOrder: number): Observable<OrderDto> {
+    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/complete-delivery`, null);
+  }
 }

@@ -28,11 +28,10 @@
     
     <div class="bottom-panel">
         <button [hidden]="assignNextHidden" mat-raised-button color="primary" (click)="assign()">Взять в работу</button>  
-        <button [hidden]="completeProcessingNextHidden" mat-raised-button color="primary" (click)="completeProcessing()">Комплектация завершена</button>
-        <button [hidden]="deliverNextHidden" mat-raised-button color="primary" (click)="deliver()">Доставлено</button>
+        <button [hidden]="completeProcessingNextHidden" mat-raised-button color="primary" (click)="completeProcessing()">Завершить комплектацию</button>
+        <button [hidden]="deliverNextHidden" mat-raised-button color="primary" (click)="completeDelivery()">Завершить доставку</button>
         <button [hidden]="returnToProcessingPrevHidden" mat-raised-button color="warn" (click)="returnToProcessing()">Вернуть в работу</button>
         <button [hidden]="assignPrevHidden" mat-raised-button color="warn" (click)="assign()">Взять в работу</button>
-        <button [hidden]="completeProcessingPrevHidden" mat-raised-button color="warn" (click)="completeProcessing()">Комплектация завершена</button>
         <button mat-raised-button (click)="goBack()">Назад</button>
     </div>
 </div>
