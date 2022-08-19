@@ -32,7 +32,7 @@ export class WorkAreaOrderComponent implements OnInit {
       order => {
         this.order = order;
         if (order?.state) {
-          this.workAreaService.getActions(order.state).subscribe(
+          this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(
             actions => this.bpmActions = actions
           );
         }
@@ -66,7 +66,7 @@ export class WorkAreaOrderComponent implements OnInit {
         .subscribe(order => {
           this.order = order;
           if (order.state) {
-            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+            this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
         });
     }
@@ -78,24 +78,24 @@ export class WorkAreaOrderComponent implements OnInit {
         .subscribe(order => {
           this.order = order;
           if (order.state) {
-            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+            this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
         })
     }
   }
 
   get assignNextHidden() {
-    let isHidden = this.bpmActions?.nextAction != ASSIGN || this.authService.userDetails.id == this.order?.manager?.id;
+    let isHidden = this.bpmActions?.nextAction != ASSIGN;
     return isHidden;
   }
 
   get assignPrevHidden() {
-    let isHidden = this.bpmActions?.prevAction != ASSIGN || this.authService.userDetails.id == this.order?.manager?.id;
+    let isHidden = this.bpmActions?.prevAction != ASSIGN;
     return isHidden;
   }
 
   get completeProcessingNextHidden() {
-    return this.bpmActions?.nextAction != COMPLETE_PROCESSING || this.authService.userDetails.id != this.order?.manager?.id;
+    return this.bpmActions?.nextAction != COMPLETE_PROCESSING;
   }
 
   get deliverNextHidden() {
@@ -112,7 +112,7 @@ export class WorkAreaOrderComponent implements OnInit {
         .subscribe(order => {
           this.order = order;
           if (order.state) {
-            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+            this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
         })
     }
@@ -124,7 +124,7 @@ export class WorkAreaOrderComponent implements OnInit {
         .subscribe(order => {
           this.order = order;
           if (order.state) {
-            this.workAreaService.getActions(order.state).subscribe(actions => this.bpmActions = actions);
+            this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
         })
     }

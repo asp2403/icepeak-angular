@@ -24,8 +24,8 @@ export class WorkAreaService {
     return this.http.get<OrderDto>(this.url + 'orders/' + id);
   }
 
-  getActions(state: number): Observable<BpmData> {
-    return this.http.get<BpmData>(this.url + 'bpm/actions/' + state);
+  getActions(order: OrderDto, idManager: number): Observable<BpmData> {
+    return this.http.put<BpmData>(this.url + 'bpm/get-actions/' + idManager, order);
   }
 
   assignOrder(idOrder: number, idManager: number): Observable<OrderDto>{
