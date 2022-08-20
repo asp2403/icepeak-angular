@@ -1,0 +1,20 @@
+<div *ngIf="model" class='wrapper'>
+    <div class="left">
+        <img src="{{'data:image/jpg;base64,' + model.image}}">
+    </div>
+    <div class="right">
+        <h1>{{model.vendor}}</h1>
+        <h2>{{model.model}}</h2>
+        <h3>Цена: {{model.price | number}} руб.</h3>
+        <p>{{model.description}}</p>
+        <p>Возраст: {{model.age}}</p>
+        <p>Пол: {{model.gender}}</p>
+        <div *ngIf="isManager">
+            
+        </div>
+        <mat-divider></mat-divider>
+        <div class="footer">
+            <button mat-raised-button (click)="goBack()">Назад</button>
+        </div>
+    </div>
+</div>

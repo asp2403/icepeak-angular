@@ -26,6 +26,9 @@
             <button *ngIf="isManager" mat-menu-item routerLink="/work-area/orders">
               <mat-icon>shop</mat-icon><span>Обработка заказов</span>
             </button> 
+            <button *ngIf="isManager" mat-menu-item routerLink="/work-area/warehouse">
+              <mat-icon>warehouse</mat-icon><span>Склад</span>
+            </button> 
             <button mat-menu-item (click)="logout()">
               <mat-icon>logout</mat-icon><span>Выход</span>
             </button>         

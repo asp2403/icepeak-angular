@@ -29,18 +29,19 @@ export class WorkAreaService {
   }
 
   assignOrder(idOrder: number, idManager: number): Observable<OrderDto>{
-    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/assign/${idManager}`, null);
+    return this.http.put<OrderDto>(this.url + `bpm/order/${idOrder}/assign-manager/${idManager}`, null);
   }
 
   orderCompleteProcessing(idOrder: number): Observable<OrderDto> {
-    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/complete-processing`, null);
+    return this.http.put<OrderDto>(this.url + `bpm/order/${idOrder}/complete-processing`, null);
   }
 
   orderReturnToProcessing(idOrder: number): Observable<OrderDto> {
-    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/return-to-processing`, null);
+    return this.http.put<OrderDto>(this.url + `bpm/order/${idOrder}/return-to-processing`, null);
   }
 
   orderCompleteDelivery(idOrder: number): Observable<OrderDto> {
-    return this.http.put<OrderDto>(this.url + `orders/${idOrder}/complete-delivery`, null);
+    return this.http.put<OrderDto>(this.url + `bpm/order/${idOrder}/complete-delivery`, null);
   }
+
 }

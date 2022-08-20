@@ -38,6 +38,8 @@ import { LoginComponent } from './login/login.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { ManagementOrdersComponent } from './management-orders/management-orders.component';
 import { WorkAreaOrderComponent } from './work-area-order/work-area-order.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { WarehouseModelComponent } from './warehouse-model/warehouse-model.component';
 
 
 
@@ -57,7 +59,9 @@ import { WorkAreaOrderComponent } from './work-area-order/work-area-order.compon
     OrderCompleteComponent,
     LoginComponent,
     ManagementOrdersComponent,
-    WorkAreaOrderComponent
+    WorkAreaOrderComponent,
+    WarehouseComponent,
+    WarehouseModelComponent
   ],
   imports: [
     HttpClientModule,

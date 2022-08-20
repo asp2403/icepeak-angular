@@ -11,3 +11,4 @@ export interface SkiDto extends ProductDto {
 export interface BootsDto extends ProductDto {
     size: number;
 }
+

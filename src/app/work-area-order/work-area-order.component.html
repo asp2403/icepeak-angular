@@ -13,6 +13,18 @@
             <span>{{convertDate(order.orderDate)}}</span>
         </div>
         <div class="row">
+            <span>Дата начала работы:</span>
+            <span>{{convertDate(order.assignDate)}}</span>
+        </div>
+        <div class="row">
+            <span>Дата готовности:</span>
+            <span>{{convertDate(order.readyDate)}}</span>
+        </div>
+        <div class="row">
+            <span>Дата выдачи/отмены:</span>
+            <span>{{convertDate(order.finalDate)}}</span>
+        </div>
+        <div class="row">
             <span>Контактные данные:</span>
             <span>{{order.contactName}} {{order.contactSurname}}</span>
         </div>

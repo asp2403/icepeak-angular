@@ -20,7 +20,7 @@ export class ManagementOrdersComponent implements OnInit {
 
   orders: OrderDto[] = [];
 
-  displayedColumns = ['idOrder', 'manager', 'state', 'orderDate', 'contactName', 'contactSurname', 'contactEmail', 'contactPhone'];
+  displayedColumns = ['idOrder', 'manager', 'state', 'orderDate', 'assignDate', 'readyDate', 'finalDate', 'contactName', 'contactSurname', 'contactEmail', 'contactPhone'];
 
   states = [
     {id: OrderState.NEW, state: this.getStateLabel(OrderState.NEW)},
@@ -69,6 +69,9 @@ export class ManagementOrdersComponent implements OnInit {
   }
 
   convertDate(value: string): string {
+    if (!value) {
+      return '';
+    }
     let date = new Date(value);
     return date.toLocaleString();
   }

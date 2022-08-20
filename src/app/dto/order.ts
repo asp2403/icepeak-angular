@@ -11,9 +11,9 @@ export interface OrderDto {
     idCustomer?: number;
     manager?: ManagerDto;
     orderDate?: string;
-    assignDate?: Date;
-    readyDate?: Date;
-    finalDate?: Date;
+    assignDate?: string;
+    readyDate?: string;
+    finalDate?: string;
   
     items: OrderItemDto[];
 }
