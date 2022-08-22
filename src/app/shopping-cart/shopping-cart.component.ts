@@ -15,7 +15,7 @@ import { ModelService } from '../model.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements AfterViewInit {
+export class ShoppingCartComponent implements OnInit {
 
   displayedColumns: string[] = ['image', 'vendor', 'model', 'price', 'qty', 'action'];
 
@@ -31,9 +31,27 @@ export class ShoppingCartComponent implements AfterViewInit {
     public dialog: MatDialog,
     private modelService: ModelService) { }
 
-  ngAfterViewInit(): void {
-    this.cartService.getDataSource().subscribe(ds => this.dataSource = ds);
+  ngOnInit(): void {
+    let cartItems = this.cartService.getCartItems();
+    let uniqueIds = new Set<number>();
+    cartItems.forEach(item => uniqueIds.add(item.product.idModel));
+    let ids: number[] = Array.from(uniqueIds);
+    let cartDSItems: CartDatasourceItem[] = [];
+    this.modelService.getModelsByIds(ids).subscribe(modelDtos => {
+      cartItems.forEach(cartItem => {
+        let modelDtoIndex = modelDtos.findIndex(item => item.id == cartItem.product.idModel);
+        if (modelDtoIndex != -1) {
+          let cartDSItem = new CartDatasourceItem(cartItem, modelDtos[modelDtoIndex]);
+          cartDSItems.push(cartDSItem);
+        }
+      });
+      this.dataSource = cartDSItems;
+      this.cartService.currentDatasource = this.dataSource;
+    });
+
   }
+
+
 
   getTotalCost(): number {
     return this.cartService.getTotalCost();

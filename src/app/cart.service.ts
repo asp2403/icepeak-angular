@@ -20,6 +20,10 @@ export class CartService {
     return this._datasource;
   }
 
+  set currentDatasource(value: CartDatasourceItem[]) {
+    this._datasource = value;
+  }
+
   constructor(
     private modelService: ModelService
   ) { }
@@ -56,7 +60,6 @@ export class CartService {
   clear() {
     this.load();
     this.cartItems = [];
-    //this._datasource = [];
     this.save();
   }
 
@@ -88,31 +91,7 @@ export class CartService {
     this.cartItems[index].qty = qty;
     this.save();
   }
-
-  getDataSource(): Observable<CartDatasourceItem[]> {
-    this.load();
-    let cartDSItems: CartDatasourceItem[] = [];
-
-    let uniqueIds = new Set<number>();
-    this.cartItems.forEach(item => uniqueIds.add(item.product.idModel));
-    let ids: number[] = Array.from(uniqueIds);
-
-    this.modelService.getModelsByIds(ids).subscribe(
-      modelDtos => {
-        this.cartItems.forEach(cartItem => {
-          let modelDtoIndex = modelDtos.findIndex(item => item.id == cartItem.product.idModel);
-          if (modelDtoIndex != -1) {
-            let cartDSItem = new CartDatasourceItem(cartItem, modelDtos[modelDtoIndex]);
-            cartDSItems.push(cartDSItem);
-
-          }
-        })
-      }
-    );
-    this._datasource = cartDSItems;
-    return of(cartDSItems);
-  }
-
+  
   getTotalCost(): number {
     return this._datasource.reduce((sum, current) => sum + current.price * current.qty, 0);
   }
