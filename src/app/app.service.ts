@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderState } from './domain/order-state';
-import { OrderDto } from './dto/order';
+import { OrderDto, OrderTitleDto } from './dto/order';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class AppService {
     }
   }
 
-  getManagerName(order: OrderDto) {
+  getManagerName(order: OrderTitleDto) {
     return order.manager ? order.manager.fullName : '<НЕ  НАЗНАЧЕН>'
   }
 }

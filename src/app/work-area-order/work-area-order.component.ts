@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrderDto } from '../dto/order';
+import { OrderDto, OrderFullDto, OrderTitleDto } from '../dto/order';
 import { WorkAreaService } from '../work-area.service';
 import { Location } from '@angular/common';
 import { AppService } from '../app.service';
 import { ASSIGN, BpmData, COMPLETE_DELIVERY, COMPLETE_PROCESSING, RETURN_TO_PROCESSING } from '../dto/bpm';
 import { AuthService } from '../auth.service';
+import { BootsDto, SkiDto } from '../dto/product';
 
 @Component({
   selector: 'app-work-area-order',
@@ -14,7 +15,9 @@ import { AuthService } from '../auth.service';
 })
 export class WorkAreaOrderComponent implements OnInit {
 
-  order?: OrderDto;
+  order?: OrderFullDto;
+
+  displayedColumns = ['id', 'label', 'qty', 'price'];
 
   bpmActions?: BpmData;
 
@@ -31,8 +34,8 @@ export class WorkAreaOrderComponent implements OnInit {
     this.workAreaService.getOrder(id).subscribe(
       order => {
         this.order = order;
-        if (order?.state) {
-          this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(
+        if (order?.title.state) {
+          this.workAreaService.getActions(order.title, this.authService.userDetails.id).subscribe(
             actions => this.bpmActions = actions
           );
         }
@@ -61,10 +64,10 @@ export class WorkAreaOrderComponent implements OnInit {
   }
 
   assign() {
-    if (this.order?.idOrder) {
-      this.workAreaService.assignOrder(this.order.idOrder, this.authService.userDetails.id)
+    if (this.order?.title.idOrder) {
+      this.workAreaService.assignOrder(this.order.title.idOrder, this.authService.userDetails.id)
         .subscribe(order => {
-          this.order = order;
+          this.order!.title = order;
           if (order.state) {
             this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
@@ -73,10 +76,10 @@ export class WorkAreaOrderComponent implements OnInit {
   }
 
   completeProcessing() {
-    if (this.order?.idOrder) {
-      this.workAreaService.orderCompleteProcessing(this.order.idOrder)
+    if (this.order?.title.idOrder) {
+      this.workAreaService.orderCompleteProcessing(this.order.title.idOrder)
         .subscribe(order => {
-          this.order = order;
+          this.order!.title = order;
           if (order.state) {
             this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
@@ -107,10 +110,10 @@ export class WorkAreaOrderComponent implements OnInit {
   }
 
   completeDelivery() {
-    if (this.order?.idOrder) {
-      this.workAreaService.orderCompleteDelivery(this.order.idOrder)
+    if (this.order?.title.idOrder) {
+      this.workAreaService.orderCompleteDelivery(this.order.title.idOrder)
         .subscribe(order => {
-          this.order = order;
+          this.order!.title = order;
           if (order.state) {
             this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
@@ -119,10 +122,10 @@ export class WorkAreaOrderComponent implements OnInit {
   }
 
   returnToProcessing() {
-    if (this.order?.idOrder) {
-      this.workAreaService.orderReturnToProcessing(this.order.idOrder)
+    if (this.order?.title.idOrder) {
+      this.workAreaService.orderReturnToProcessing(this.order.title.idOrder)
         .subscribe(order => {
-          this.order = order;
+          this.order!.title = order;
           if (order.state) {
             this.workAreaService.getActions(order, this.authService.userDetails.id).subscribe(actions => this.bpmActions = actions);
           }
@@ -130,8 +133,17 @@ export class WorkAreaOrderComponent implements OnInit {
     }
   }
 
-  getManagerName(order: OrderDto) {
+  getManagerName(order: OrderTitleDto) {
     return this.appService.getManagerName(order);
+  }
+
+  getLabel(index: number): string {
+    let item = this.order?.items[index];
+    if (item?.category == 1) {
+      return `${item.model} (Ростовка ${(item.product as SkiDto).height})`;
+    } else {
+      return `${item?.model} (Размер ${(item?.product as BootsDto).size})`;
+    }
   }
 
 

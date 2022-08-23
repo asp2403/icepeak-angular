@@ -19,7 +19,7 @@ export class WarehouseModelComponent implements OnInit {
   model?: ModelFullDto;
 
   whProducts: WHProduct[] = [];
-  displayedColumns = ['label', 'qtyAvailable', 'qtyReserved'];
+  displayedColumns = ['id', 'label', 'qtyAvailable', 'qtyReserved'];
 
   constructor(
     private route: ActivatedRoute,

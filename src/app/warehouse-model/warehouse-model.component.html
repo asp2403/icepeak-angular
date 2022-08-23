@@ -11,6 +11,11 @@
         <p>Пол: {{model.gender}}</p>
         <div *ngIf="isManager">
             <table mat-table [dataSource]="whProducts" class="mat-elevation-z8">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Код товара </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+                
                 <ng-container matColumnDef="label">
                     <th mat-header-cell *matHeaderCellDef> {{model.category == 1 ? 'Лыжи' : 'Ботинки'}} </th>
                     <td mat-cell *matCellDef="let element"> {{element.label}} </td>

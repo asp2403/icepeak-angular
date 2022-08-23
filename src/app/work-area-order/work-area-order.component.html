@@ -1,42 +1,68 @@
 <div class="form" *ngIf="order">
-    <h1 class="mat-h1">Заказ #{{order.idOrder}}</h1>
-    <h4 class="mat-h4">Менеджер: {{getManagerName(order)}}</h4>
+    <h1 class="mat-h1">Заказ #{{order.title.idOrder}}</h1>
+    <h4 class="mat-h4">Менеджер: {{getManagerName(order.title)}}</h4>
     <div class="panel mat-elevation-z8">
         <div class="row">
             <span class="title">Статус заказа:</span>
-            <div class="status {{getOrderStateClass(order.state)}}">
-                <div class="status-text">{{getOrderStateLabel(order.state)}}</div>
+            <div class="status {{getOrderStateClass(order.title.state)}}">
+                <div class="status-text">{{getOrderStateLabel(order.title.state)}}</div>
             </div>
         </div>
         <div class="row">
             <span>Дата заказа:</span>
-            <span>{{convertDate(order.orderDate)}}</span>
+            <span>{{convertDate(order.title.orderDate)}}</span>
         </div>
         <div class="row">
             <span>Дата начала работы:</span>
-            <span>{{convertDate(order.assignDate)}}</span>
+            <span>{{convertDate(order.title.assignDate)}}</span>
         </div>
         <div class="row">
             <span>Дата готовности:</span>
-            <span>{{convertDate(order.readyDate)}}</span>
+            <span>{{convertDate(order.title.readyDate)}}</span>
         </div>
         <div class="row">
             <span>Дата выдачи/отмены:</span>
-            <span>{{convertDate(order.finalDate)}}</span>
+            <span>{{convertDate(order.title.finalDate)}}</span>
         </div>
         <div class="row">
             <span>Контактные данные:</span>
-            <span>{{order.contactName}} {{order.contactSurname}}</span>
+            <span>{{order.title.contactName}} {{order.title.contactSurname}}</span>
         </div>
         <div class="row">
             <span>Телефон:</span>
-            <span>+7{{order.contactPhone}}</span>
+            <span>+7{{order.title.contactPhone}}</span>
         </div>
         <div class="row">
             <span>Email:</span>
-            <span>{{order.contactEmail}}</span>
+            <span>{{order.title.contactEmail}}</span>
         </div>
     </div>
+
+    <table mat-table [dataSource]="order.items" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Код товара </th>
+            <td mat-cell *matCellDef="let element"> {{element.product.id}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="label">
+            <th mat-header-cell *matHeaderCellDef> Товар </th>
+            <td mat-cell *matCellDef="let element; let i = index"> {{getLabel(i)}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef> Количество </th>
+            <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Цена </th>
+            <td mat-cell *matCellDef="let element"> {{element.salePrice}} </td>
+        </ng-container>
+              
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+    </table>
     
     <div class="bottom-panel">
         <button [hidden]="assignNextHidden" mat-raised-button color="primary" (click)="assign()">Взять в работу</button>  
