@@ -10,7 +10,26 @@
         <p>Возраст: {{model.age}}</p>
         <p>Пол: {{model.gender}}</p>
         <div *ngIf="isManager">
+            <table mat-table [dataSource]="whProducts" class="mat-elevation-z8">
+                <ng-container matColumnDef="label">
+                    <th mat-header-cell *matHeaderCellDef> {{model.category == 1 ? 'Лыжи' : 'Ботинки'}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+                </ng-container>
             
+                <ng-container matColumnDef="qtyAvailable">
+                    <th mat-header-cell *matHeaderCellDef> Количество на складе </th>
+                    <td mat-cell *matCellDef="let element"> {{element.qtyAvailable}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="qtyReserved">
+                    <th mat-header-cell *matHeaderCellDef> Зарезервировано </th>
+                    <td mat-cell *matCellDef="let element"> {{element.qtyReserved}} </td>
+                </ng-container>
+                      
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            </table>
         </div>
         <mat-divider></mat-divider>
         <div class="footer">

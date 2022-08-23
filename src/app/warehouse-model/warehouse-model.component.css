@@ -22,3 +22,8 @@
 p {
     margin-top: 1rem;
 }
+
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+}
